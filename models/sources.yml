@@ -1,0 +1,26 @@
+version: 2
+
+sources: 
+  - name: outserved
+    description: Outserved Database 
+    schema: core
+    tables: 
+      - name: logs
+        description: User Geofence Logs 
+        identifier: geofencelogs
+
+      - name: businesses
+        description: Outserved Businesses 
+        identifier: business
+
+      - name: users
+        description: Outserved Users without nulls 
+        identifier: USER_
+
+      - name: locations
+        description: Outserved business locations
+        identifier: locations
+
+      - name: logs_final
+        description: cleaned geofence logs with business id
+        idnetifier: logs_final
