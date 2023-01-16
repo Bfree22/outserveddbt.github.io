@@ -1,0 +1,59 @@
+version: 2
+
+models:
+  - name: dim_logs_cleaned
+    description: Cleaned table which contains Outserved Geofence Logs.
+    columns:
+      - name: log_id
+        description: Primary key for the log
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_business_cleaned
+    description: Cleaned table which contains Outserved Businesses.
+    columns:
+      - name: Business_id
+        description: Primary Key for the business table
+        tests:
+          - unique
+          - not_null
+    
+  - name: dim_locations_cleaned
+    description: Cleaned locations table for Outserved Businesses.
+    columns: 
+      - name: objectid
+        description: Check if nulls in Location ID for outserved businesses
+        tests:
+          - unique
+          # - not_null
+
+      - name: business_id
+        tests:
+          - relationships:
+              to: ref('dim_logs_final')
+              field: business_id 
+
+      - name: category
+        description: Category for outserved business
+        tests:
+          - accepted_values:
+              values: ['Food','Services','Things To Do','Food & Drink','Shopping','Bar & Grill','category']
+
+  - name: dim_logs_final
+    description: Cleaned geofence logs including business ID (Primary Key)
+    columns:
+      - name: _id
+        description: geofence log ID
+        tests:
+          - unique
+          - not_null
+
+  - name: fct_users
+    description: Cleaned users table
+    columns:
+      - name: user_id 
+        description: primary key for the users table
+        tests:
+          - unique
+          - not_null

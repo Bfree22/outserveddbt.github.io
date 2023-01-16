@@ -1,0 +1,25 @@
+
+    
+    
+
+with child as (
+    select business_id as from_field
+    from outserved.core.dim_locations_cleaned
+    where business_id is not null
+),
+
+parent as (
+    select _p_business as to_field
+    from outserved.core.dim_logs_final
+)
+
+select
+    from_field
+
+from child
+left join parent
+    on child.from_field = parent.to_field
+
+where parent.to_field is null
+
+
